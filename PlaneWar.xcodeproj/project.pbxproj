@@ -13,8 +13,6 @@
 		44DBC6C0194B34640067162C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBC6BF194B34640067162C /* GameViewController.swift */; };
 		44DBC6C5194B34640067162C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44DBC6C4194B34640067162C /* Images.xcassets */; };
 		44DBC6D1194B34640067162C /* PlaneWarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBC6D0194B34640067162C /* PlaneWarTests.swift */; };
-		44DBC6E5194B34850067162C /* BurstAircraftPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 44DBC6DA194B34850067162C /* BurstAircraftPause.png */; };
-		44DBC6E6194B34850067162C /* BurstAircraftPause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44DBC6DB194B34850067162C /* BurstAircraftPause@2x.png */; };
 		44DBC6E7194B34850067162C /* bullet.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44DBC6DD194B34850067162C /* bullet.mp3 */; };
 		44DBC6E8194B34850067162C /* enemy1_down.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44DBC6DE194B34850067162C /* enemy1_down.mp3 */; };
 		44DBC6E9194B34850067162C /* enemy2_down.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44DBC6DF194B34850067162C /* enemy2_down.mp3 */; };
@@ -24,6 +22,8 @@
 		44DBC6ED194B34850067162C /* game_over.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44DBC6E3194B34850067162C /* game_over.mp3 */; };
 		44DBC6EE194B34850067162C /* textures.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 44DBC6E4194B34850067162C /* textures.atlas */; };
 		44DBC6F0194B34F70067162C /* EnemyPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBC6EF194B34F70067162C /* EnemyPlane.swift */; };
+		B53DA5AE1DF440CE0013513F /* BurstAircraftPause.png in Resources */ = {isa = PBXBuildFile; fileRef = B53DA5AC1DF440CE0013513F /* BurstAircraftPause.png */; };
+		B53DA5AF1DF440CE0013513F /* BurstAircraftPause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53DA5AD1DF440CE0013513F /* BurstAircraftPause@2x.png */; };
 		B591ECB21DF3E34C00D55301 /* HeroPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B591ECB11DF3E34C00D55301 /* HeroPlane.swift */; };
 		B591ECB41DF3E38100D55301 /* Suply.swift in Sources */ = {isa = PBXBuildFile; fileRef = B591ECB31DF3E38100D55301 /* Suply.swift */; };
 		B5C29CEE1DF3EE5400BA59EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5C29CEC1DF3EE5400BA59EC /* Main.storyboard */; };
@@ -61,8 +61,6 @@
 		44DBC6CA194B34640067162C /* PlaneWarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaneWarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44DBC6CF194B34640067162C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44DBC6D0194B34640067162C /* PlaneWarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneWarTests.swift; sourceTree = "<group>"; };
-		44DBC6DA194B34850067162C /* BurstAircraftPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BurstAircraftPause.png; sourceTree = "<group>"; };
-		44DBC6DB194B34850067162C /* BurstAircraftPause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BurstAircraftPause@2x.png"; sourceTree = "<group>"; };
 		44DBC6DD194B34850067162C /* bullet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet.mp3; sourceTree = "<group>"; };
 		44DBC6DE194B34850067162C /* enemy1_down.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = enemy1_down.mp3; sourceTree = "<group>"; };
 		44DBC6DF194B34850067162C /* enemy2_down.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = enemy2_down.mp3; sourceTree = "<group>"; };
@@ -72,6 +70,8 @@
 		44DBC6E3194B34850067162C /* game_over.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_over.mp3; sourceTree = "<group>"; };
 		44DBC6E4194B34850067162C /* textures.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = textures.atlas; sourceTree = "<group>"; };
 		44DBC6EF194B34F70067162C /* EnemyPlane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyPlane.swift; sourceTree = "<group>"; };
+		B53DA5AC1DF440CE0013513F /* BurstAircraftPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BurstAircraftPause.png; path = "../../../Desktop/归档/BurstAircraftPause.png"; sourceTree = "<group>"; };
+		B53DA5AD1DF440CE0013513F /* BurstAircraftPause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BurstAircraftPause@2x.png"; path = "../../../Desktop/归档/BurstAircraftPause@2x.png"; sourceTree = "<group>"; };
 		B591ECB11DF3E34C00D55301 /* HeroPlane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroPlane.swift; sourceTree = "<group>"; };
 		B591ECB31DF3E38100D55301 /* Suply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suply.swift; sourceTree = "<group>"; };
 		B5C29CED1DF3EE5400BA59EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../Desktop/flora/PlaneWar/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -134,8 +134,8 @@
 				D41D59BE1DF3170900CC9F07 /* startbutton.png */,
 				D4E862121DEF3D0600481479 /* background1.png */,
 				D4E862131DEF3D0600481479 /* background2.png */,
-				44DBC6DA194B34850067162C /* BurstAircraftPause.png */,
-				44DBC6DB194B34850067162C /* BurstAircraftPause@2x.png */,
+				B53DA5AC1DF440CE0013513F /* BurstAircraftPause.png */,
+				B53DA5AD1DF440CE0013513F /* BurstAircraftPause@2x.png */,
 				44DBC6DC194B34850067162C /* sounds */,
 				44DBC6E4194B34850067162C /* textures.atlas */,
 				44DBC6B9194B34640067162C /* AppDelegate.swift */,
@@ -287,17 +287,17 @@
 				D41D59C31DF317D900CC9F07 /* statisticbutton.png in Resources */,
 				B5C29CEE1DF3EE5400BA59EC /* Main.storyboard in Resources */,
 				44DBC6E8194B34850067162C /* enemy1_down.mp3 in Resources */,
+				B53DA5AE1DF440CE0013513F /* BurstAircraftPause.png in Resources */,
 				D41D59C51DF319B400CC9F07 /* homebutton.png in Resources */,
-				44DBC6E6194B34850067162C /* BurstAircraftPause@2x.png in Resources */,
 				D4E862141DEF3D0700481479 /* background1.png in Resources */,
 				44DBC6EC194B34850067162C /* game_music.mp3 in Resources */,
+				B53DA5AF1DF440CE0013513F /* BurstAircraftPause@2x.png in Resources */,
 				D4E862151DEF3D0700481479 /* background2.png in Resources */,
 				44DBC6EA194B34850067162C /* enemy2_out.mp3 in Resources */,
 				44DBC6E9194B34850067162C /* enemy2_down.mp3 in Resources */,
 				D41D59BF1DF3170900CC9F07 /* startbutton.png in Resources */,
 				44DBC6ED194B34850067162C /* game_over.mp3 in Resources */,
 				44DBC6E7194B34850067162C /* bullet.mp3 in Resources */,
-				44DBC6E5194B34850067162C /* BurstAircraftPause.png in Resources */,
 				44DBC6EE194B34850067162C /* textures.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

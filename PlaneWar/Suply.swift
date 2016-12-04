@@ -15,7 +15,7 @@ enum SuplyType : Int{
 class Suply:SKSpriteNode{
     var type:SuplyType = .bulletSuply
     class func createBulletSuply() ->Suply{
-        let suplyTexture = SKTexture(imageNamed:"enemy5_fly_1")
+        let suplyTexture = SKTexture(imageNamed:"enemy4_fly_1.png")
         let suply = Suply(texture:suplyTexture)
         suply.type = SuplyType.bulletSuply
         suply.setScale(0.5)
@@ -23,7 +23,7 @@ class Suply:SKSpriteNode{
         return suply
     }
     class func createHpSuply() ->Suply{
-        let suplyTexture = SKTexture(imageNamed:"enemy4_fly_1")
+        let suplyTexture = SKTexture(imageNamed:"enemy5_fly_1.png")
         let suply = Suply(texture:suplyTexture)
         suply.type = SuplyType.hpSuply
         suply.setScale(0.5)
