@@ -394,7 +394,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         else if collision == RoleCategory.enemyPlane.rawValue | RoleCategory.heroPlane.rawValue
         {
-<<<<<<< HEAD
             let enemyPlane = (contact.bodyA.categoryBitMask & RoleCategory.enemyPlane.rawValue) == RoleCategory.enemyPlane.rawValue
                 ? (contact.bodyA.node as! EnemyPlane) : (contact.bodyB.node as! EnemyPlane)
             
