@@ -73,7 +73,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     func initBackground()
     {
         // init texture
-        let backgroundTexture = SKTexture(imageNamed:"background")
+        let backgroundTexture = SKTexture(imageNamed:"background.png")
         backgroundTexture.filteringMode = .nearest
         
         // set action
