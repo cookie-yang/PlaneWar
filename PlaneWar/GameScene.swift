@@ -2,8 +2,7 @@
 //  GameScene.swift
 //  PlaneShooter
 //
-//  Created by FloodSurge on 6/9/14.
-//  Copyright (c) 2014 FloodSurge. All rights reserved.
+//  Copyright © 2016年 FloodSurge. All rights reserved.
 //
 
 import SpriteKit
@@ -13,8 +12,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var heroPlane:HeroPlane!
     var scoreLabel:SKLabelNode!
     var pauseButton:SKSpriteNode!
-    
     var gameLevel:SKLabelNode!
+    
     
     var smallPlaneHitAction:SKAction!
     var smallPlaneBlowUpAction:SKAction!
@@ -40,7 +39,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         initGameLevel()
         initSupply()
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.restart), name: NSNotification.Name(rawValue: "restartNotification"), object: nil)
-    
     }
     
     func restart(){
@@ -80,15 +78,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         // set action
         
-        let moveBackgroundSprite = SKAction.moveBy(x: 0, y:-backgroundTexture.size().height, duration: 50)
+
+        let moveBackgroundSprite = SKAction.moveBy(x: 0, y:-backgroundTexture.size().height, duration: 5)
         let resetBackgroundSprite = SKAction.moveBy(x: 0, y:backgroundTexture.size().height, duration: 0)
         let moveBackgroundForever = SKAction.repeatForever(SKAction.sequence([moveBackgroundSprite,resetBackgroundSprite]))
         
         // init background sprite
         
         for index in 0..<2 {
+   
             let backgroundSprite = SKSpriteNode(texture:backgroundTexture)
-            
             backgroundSprite.position = CGPoint(x: size.width/2,y: size.height / 2 + CGFloat(index) * backgroundSprite.size.height)
             backgroundSprite.zPosition = 0
             backgroundSprite.run(moveBackgroundForever)
@@ -96,7 +95,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         
         // play background music
-        //run(SKAction.repeatForever(SKAction.playSoundFileNamed("game_music.mp3", waitForCompletion: true)))
+
+        run(SKAction.repeatForever(SKAction.playSoundFileNamed("game_music.mp3", waitForCompletion: true)))
         
         // set physics world
         physicsWorld.contactDelegate = self
@@ -172,6 +172,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //        addChild(scoreLabelText)
 
         
+
     }
     
     func changeScore(_ type:EnemyPlaneType)
@@ -244,14 +245,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         heroPlane.physicsBody?.allowsRotation = false
         heroPlane.physicsBody?.categoryBitMask = RoleCategory.heroPlane.rawValue
         heroPlane.physicsBody?.collisionBitMask = RoleCategory.enemyPlane.rawValue | RoleCategory.suply.rawValue
-        heroPlane.physicsBody?.contactTestBitMask = RoleCategory.enemyPlane.rawValue | RoleCategory.suply.rawValue
-        
+        heroPlane.physicsBody?.contactTestBitMask = RoleCategory.enemyPlane.rawValue | RoleCategory.suply.rawValue        
         addChild(heroPlane)
         
         // fire bullets
         let spawn = SKAction.run{() in
             self.createBullet()}
         let wait = SKAction.wait(forDuration: 0.5/Double(self.heroPlane.weaponLevel))
+
         heroPlane.run(SKAction.repeatForever(SKAction.sequence([spawn,wait])))
         
     }
@@ -317,7 +318,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         
         enemyPlane.zPosition = 1
-        enemyPlane.physicsBody?.isDynamic = true
+        enemyPlane.physicsBody?.isDynamic = false
         enemyPlane.physicsBody?.allowsRotation = false
         enemyPlane.physicsBody?.categoryBitMask = RoleCategory.enemyPlane.rawValue
         enemyPlane.physicsBody?.collisionBitMask = RoleCategory.bullet.rawValue | RoleCategory.heroPlane.rawValue
@@ -378,7 +379,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact)
     {
         
-        
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         if collision == RoleCategory.enemyPlane.rawValue | RoleCategory.bullet.rawValue
         {
@@ -394,6 +394,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         else if collision == RoleCategory.enemyPlane.rawValue | RoleCategory.heroPlane.rawValue
         {
+<<<<<<< HEAD
             let enemyPlane = (contact.bodyA.categoryBitMask & RoleCategory.enemyPlane.rawValue) == RoleCategory.enemyPlane.rawValue
                 ? (contact.bodyA.node as! EnemyPlane) : (contact.bodyB.node as! EnemyPlane)
             
@@ -420,7 +421,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             
             
         }
-
     }
     
     func enemyPlaneCollision(_ enemyPlane:EnemyPlane)
@@ -475,6 +475,40 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             heroPlane.hp = 0
         }
         if heroPlane.hp == 0{
+            print("hit plane")
+            var finalscore = Int(self.scoreLabel.text!)!
+            if finalscore > score1
+            {
+                score5 = score4
+                score4 = score3
+                score3 = score2
+                score2 = score1
+                score1 = finalscore
+            }
+            else if (finalscore > score2 && finalscore < score1 )
+            {
+                score5 = score4
+                score4 = score3
+                score3 = score2
+                score2 = finalscore
+            }
+            else if (finalscore > score3 && finalscore < score2 )
+            {
+                score5 = score4
+                score4 = score3
+                score3 = finalscore
+            }
+            else if (finalscore > score4 && finalscore < score3 )
+            {
+                score5 = score4
+                score4 = finalscore
+            }
+            else if (finalscore > score5 && finalscore < score4 )
+
+            {
+                score5 = finalscore
+            }
+            
             heroPlane.run(heroPlaneBlowUpAction,completion:{() in
                 self.run(SKAction.sequence([
                     SKAction.playSoundFileNamed("game_over.mp3", waitForCompletion: true),
@@ -495,6 +529,4 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             )
         }
     }
-
-
 }

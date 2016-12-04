@@ -1,9 +1,8 @@
 //
 //  EnemyPlane.swift
-//  PlaneShooter
+//  PlaneWar
 //
-//  Created by FloodSurge on 6/13/14.
-//  Copyright (c) 2014 FloodSurge. All rights reserved.
+//  Copyright © 2016年 FloodSurge. All rights reserved.
 //
 
 import SpriteKit
@@ -34,7 +33,6 @@ class EnemyPlane:SKSpriteNode {
     class func createMediumPlane()->EnemyPlane{
         let planeTexture = SKTexture(imageNamed:"enemy3_fly_1")
         let plane = EnemyPlane(texture:planeTexture)
-        //plane.hp = 3
         plane.type = EnemyPlaneType.medium
         plane.setScale(0.5)
         //plane.physicsBody = SKPhysicsBody(rectangleOfSize: plane.size)
@@ -45,7 +43,6 @@ class EnemyPlane:SKSpriteNode {
     class func createLargePlane()->EnemyPlane{
         let planeTexture = SKTexture(imageNamed:"enemy2_fly_1")
         let plane = EnemyPlane(texture:planeTexture)
-//        plane.hp = 6
         plane.type = EnemyPlaneType.large
         plane.setScale(0.5)
         //plane.physicsBody = SKPhysicsBody(rectangleOfSize: plane.size)

@@ -2,8 +2,8 @@
 //  GameViewController.swift
 //  PlaneShooter
 //
-//  Created by FloodSurge on 6/9/14.
-//  Copyright (c) 2014 FloodSurge. All rights reserved.
+
+//  Copyright © 2016年 FloodSurge. All rights reserved.
 //
 
 import UIKit
@@ -35,8 +35,12 @@ class GameViewController: UIViewController {
     var restartButton:UIButton!
     var pauseButton:UIButton!
     var continueButton:UIButton!
+
     var isbackgroundView = false
     var backgroundView:UIView!
+
+    var backButton:UIButton!
+    var score:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,11 +76,23 @@ class GameViewController: UIViewController {
         pauseButton.addTarget(self, action: #selector(GameViewController.pause), for: .touchUpInside)
         view.addSubview(pauseButton)
         
+        backButton = UIButton()
+        backButton.bounds = CGRect(x: 0, y: 0, width: 200, height: 30)
+        backButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 - 50)
+        backButton.isHidden = true
+        backButton.setTitle("Home", for: UIControlState())
+        backButton.setTitleColor(UIColor.black, for: UIControlState())
+        backButton.layer.borderWidth = 2.0
+        backButton.layer.cornerRadius = 15.0
+        backButton.layer.borderColor = UIColor.gray.cgColor
+        backButton.addTarget(self, action: #selector(GameViewController.backHome), for: .touchUpInside)
+        view.addSubview(backButton)
+        
         restartButton = UIButton()
         restartButton.bounds = CGRect(x: 0, y: 0, width: 200, height: 30)
-        restartButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 + 30)
+        restartButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 + 50)
         restartButton.isHidden = true
-        restartButton.setTitle("restart", for: UIControlState())
+        restartButton.setTitle("Restart", for: UIControlState())
         restartButton.setTitleColor(UIColor.black, for: UIControlState())
         restartButton.layer.borderWidth = 2.0
         restartButton.layer.cornerRadius = 15.0
@@ -86,9 +102,9 @@ class GameViewController: UIViewController {
         
         continueButton = UIButton()
         continueButton.bounds = CGRect(x: 0, y: 0, width: 200, height: 30)
-        continueButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 - 30)
+        continueButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 )
         continueButton.isHidden = true
-        continueButton.setTitle("continue", for: UIControlState())
+        continueButton.setTitle("Continue", for: UIControlState())
         continueButton.setTitleColor(UIColor.black, for: UIControlState())
         continueButton.layer.borderWidth = 2.0
         continueButton.layer.cornerRadius = 15.0
@@ -100,11 +116,14 @@ class GameViewController: UIViewController {
     }
 
     func gameOver(){
-        if isbackgroundView == false{
+       if isbackgroundView == false{
         backgroundView = UIView(frame:view.bounds)
-        restartButton.center = backgroundView.center
+        restartButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 + 20)
+        backButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 + 60)
         restartButton.isHidden = false
+        backButton.isHidden = false
         backgroundView.addSubview(restartButton)
+        backgroundView.addSubview(backButton)
         backgroundView.center = view.center
         view.addSubview(backgroundView)
         pauseButton.removeFromSuperview()
@@ -117,12 +136,18 @@ class GameViewController: UIViewController {
         (view as! SKView).isPaused = true
         restartButton.isHidden = false
         continueButton.isHidden = false
-        
+        backButton.isHidden = false
     }
+    
+    func backHome(){
+        self.dismiss(animated: true)
+    }
+
     
     func restart(_ button:UIButton){
         restartButton.isHidden = true
         continueButton.isHidden = true
+        backButton.isHidden = true
         self.becomeFirstResponder()
         (view as! SKView).isPaused = false
         NotificationCenter.default.post(name: Notification.Name(rawValue: "restartNotification"), object: nil)
@@ -137,6 +162,8 @@ class GameViewController: UIViewController {
     func continueGame(_ button:UIButton){
         continueButton.isHidden = true
         restartButton.isHidden = true
+        backButton.isHidden = true
+
         (view as! SKView).isPaused = false
     }
    

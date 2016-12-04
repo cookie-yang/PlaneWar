@@ -2,8 +2,7 @@
 //  AppDelegate.swift
 //  PlaneWar
 //
-//  Created by FloodSurge on 6/13/14.
-//  Copyright (c) 2014 FloodSurge. All rights reserved.
+
 //
 
 import UIKit
