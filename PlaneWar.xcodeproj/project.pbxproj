@@ -26,7 +26,7 @@
 		44DBC6F0194B34F70067162C /* EnemyPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBC6EF194B34F70067162C /* EnemyPlane.swift */; };
 		B591ECB21DF3E34C00D55301 /* HeroPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B591ECB11DF3E34C00D55301 /* HeroPlane.swift */; };
 		B591ECB41DF3E38100D55301 /* Suply.swift in Sources */ = {isa = PBXBuildFile; fileRef = B591ECB31DF3E38100D55301 /* Suply.swift */; };
-		B591ECB71DF3E40500D55301 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B591ECB51DF3E40500D55301 /* Main.storyboard */; };
+		B5C29CEE1DF3EE5400BA59EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5C29CEC1DF3EE5400BA59EC /* Main.storyboard */; };
 		D41D59BF1DF3170900CC9F07 /* startbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = D41D59BE1DF3170900CC9F07 /* startbutton.png */; };
 		D41D59C11DF317C900CC9F07 /* rulebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = D41D59C01DF317C900CC9F07 /* rulebutton.png */; };
 		D41D59C31DF317D900CC9F07 /* statisticbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = D41D59C21DF317D900CC9F07 /* statisticbutton.png */; };
@@ -74,7 +74,7 @@
 		44DBC6EF194B34F70067162C /* EnemyPlane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyPlane.swift; sourceTree = "<group>"; };
 		B591ECB11DF3E34C00D55301 /* HeroPlane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroPlane.swift; sourceTree = "<group>"; };
 		B591ECB31DF3E38100D55301 /* Suply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suply.swift; sourceTree = "<group>"; };
-		B591ECB61DF3E40500D55301 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../Desktop/flora/PlaneWar/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B5C29CED1DF3EE5400BA59EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../Desktop/flora/PlaneWar/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D41D59BE1DF3170900CC9F07 /* startbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startbutton.png; sourceTree = "<group>"; };
 		D41D59C01DF317C900CC9F07 /* rulebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rulebutton.png; sourceTree = "<group>"; };
 		D41D59C21DF317D900CC9F07 /* statisticbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statisticbutton.png; sourceTree = "<group>"; };
@@ -142,8 +142,8 @@
 				B591ECB31DF3E38100D55301 /* Suply.swift */,
 				D4FD9A011DF0867400D31DE3 /* Score.swift */,
 				44DBC6BB194B34640067162C /* GameScene.sks */,
+				B5C29CEC1DF3EE5400BA59EC /* Main.storyboard */,
 				44DBC6EF194B34F70067162C /* EnemyPlane.swift */,
-				B591ECB51DF3E40500D55301 /* Main.storyboard */,
 				D4E8620C1DEF1A1400481479 /* HomeViewController.swift */,
 				44DBC6BD194B34640067162C /* GameScene.swift */,
 				B591ECB11DF3E34C00D55301 /* HeroPlane.swift */,
@@ -285,12 +285,12 @@
 				44DBC6BC194B34640067162C /* GameScene.sks in Resources */,
 				D41D59C11DF317C900CC9F07 /* rulebutton.png in Resources */,
 				D41D59C31DF317D900CC9F07 /* statisticbutton.png in Resources */,
+				B5C29CEE1DF3EE5400BA59EC /* Main.storyboard in Resources */,
 				44DBC6E8194B34850067162C /* enemy1_down.mp3 in Resources */,
 				D41D59C51DF319B400CC9F07 /* homebutton.png in Resources */,
 				44DBC6E6194B34850067162C /* BurstAircraftPause@2x.png in Resources */,
 				D4E862141DEF3D0700481479 /* background1.png in Resources */,
 				44DBC6EC194B34850067162C /* game_music.mp3 in Resources */,
-				B591ECB71DF3E40500D55301 /* Main.storyboard in Resources */,
 				D4E862151DEF3D0700481479 /* background2.png in Resources */,
 				44DBC6EA194B34850067162C /* enemy2_out.mp3 in Resources */,
 				44DBC6E9194B34850067162C /* enemy2_down.mp3 in Resources */,
@@ -348,10 +348,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B591ECB51DF3E40500D55301 /* Main.storyboard */ = {
+		B5C29CEC1DF3EE5400BA59EC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B591ECB61DF3E40500D55301 /* Base */,
+				B5C29CED1DF3EE5400BA59EC /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
