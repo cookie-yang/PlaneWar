@@ -79,7 +79,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         // set action
         
 
-        let moveBackgroundSprite = SKAction.moveBy(x: 0, y:-backgroundTexture.size().height, duration: 5)
+        let moveBackgroundSprite = SKAction.moveBy(x: 0, y:-backgroundTexture.size().height, duration: 8)
         let resetBackgroundSprite = SKAction.moveBy(x: 0, y:backgroundTexture.size().height, duration: 0)
         let moveBackgroundForever = SKAction.repeatForever(SKAction.sequence([moveBackgroundSprite,resetBackgroundSprite]))
         
@@ -251,7 +251,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         // fire bullets
         let spawn = SKAction.run{() in
             self.createBullet()}
-        let wait = SKAction.wait(forDuration: 0.5/Double(self.heroPlane.weaponLevel))
+        let wait = SKAction.wait(forDuration: 0.3/Double(self.heroPlane.weaponLevel))
 
         heroPlane.run(SKAction.repeatForever(SKAction.sequence([spawn,wait])))
         
@@ -264,7 +264,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         bullet.setScale(0.5)
         bullet.position = CGPoint(x: heroPlane.position.x, y: heroPlane.position.y + heroPlane.size.height/2 + bullet.size.height/2)
         bullet.zPosition = 1
-        let bulletMove = SKAction.moveBy(x: 0, y: size.height, duration: 0.5)
+        let bulletMove = SKAction.moveBy(x: 0, y: size.height, duration: 0.8)
         let bulletRemove = SKAction.removeFromParent()
         bullet.run(SKAction.sequence([bulletMove,bulletRemove]))
         
@@ -300,7 +300,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         {
         case 0..<75:
             type = .small
-            speed = Float(arc4random() % 3) + 4.0-Float(Int(self.gameLevel.text!)!)
+            speed = Float(arc4random() % 3) + 5.0-Float(Int(self.gameLevel.text!)!)
             enemyPlane = EnemyPlane.createSmallPlane()
             enemyPlane.hp = Int(self.gameLevel.text!)!
             
