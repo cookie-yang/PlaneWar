@@ -226,7 +226,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     {
         let curScore = Int(scoreLabel.text!)
         var level:Int = 1
-        if let s = curScore {
+        if curScore != nil {
         switch  curScore!{
         case 0..<50000:
              level = 1
