@@ -112,12 +112,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlaneWar/GameScene.swift"
-            timestampString = "502338667.760354"
+            timestampString = "502650154.989866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "313"
-            endingLineNumber = "313"
-            landmarkName = "didBegin(_:)"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
+            landmarkName = "createEnemyPlane()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -128,12 +128,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlaneWar/GameScene.swift"
-            timestampString = "502337756.005241"
+            timestampString = "502650154.989866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
-            landmarkName = "didBegin(_:)"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
+            landmarkName = "createEnemyPlane()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -144,12 +144,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlaneWar/GameScene.swift"
-            timestampString = "502338650.123749"
+            timestampString = "502650154.989866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "didBegin(_:)"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
+            landmarkName = "initEnemyPlane()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -166,6 +166,22 @@
             startingLineNumber = "14"
             endingLineNumber = "14"
             landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlaneWar/GameScene.swift"
+            timestampString = "502650154.989866"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "changeGameLevel()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

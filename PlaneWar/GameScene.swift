@@ -23,6 +23,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var largePlaneHitAction:SKAction!
     var largePlaneBlowUpAction:SKAction!
     var heroPlaneBlowUpAction:SKAction!
+    var curlevel:Int = 1
     
     enum RoleCategory:UInt32{
         case bullet = 1
@@ -39,6 +40,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         initScoreLabel()
         initGameLevel()
         initSupply()
+        initGameLife()
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.restart), name: NSNotification.Name(rawValue: "restartNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.pause), name: NSNotification.Name(rawValue: "pauseNotification"), object: nil)
         
@@ -55,6 +57,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         initHeroPlane()
         initEnemyPlane()
         initSupply()
+        initGameLife()
         
         
     }
@@ -79,6 +82,27 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     {
         self.ispause = true
     }
+    func initGameLife(){
+        var lifeSprite = [SKSpriteNode]()
+        if(heroPlane.hp <= 0){
+//            self.removeAllChildren()
+//            self.removeAllActions()
+            print("aaa")
+        }
+        else{
+            for index in 0 ... 4  {
+                let lifeTexture = SKTexture(imageNamed:"hero_fly_1")
+                lifeSprite.append(SKSpriteNode(texture:lifeTexture))
+                lifeSprite[index].setScale(0.2)
+                lifeSprite[index].name = "\(index)"
+                lifeSprite[index].position = CGPoint(x: 350 - index * 30, y: 32 )
+                if(index <= heroPlane.hp - 1){
+                    addChild(lifeSprite[index])
+                }
+//                removeChildren(in: childNode(withName: "\(index)"))
+            }
+        }
+    }
     
     func initBackground()
     {
@@ -95,7 +119,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         // init background sprite
         
         for index in 0..<2 {
-   
             let backgroundSprite = SKSpriteNode(texture:backgroundTexture)
             backgroundSprite.position = CGPoint(x: size.width/2,y: size.height / 2 + CGFloat(index) * backgroundSprite.size.height)
             backgroundSprite.zPosition = 0
@@ -234,9 +257,23 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     func changeGameLevel()
     {
         let curScore = Int(scoreLabel.text!)
-        var level:Int = 1
         if curScore != nil {
-        switch  curScore!{
+            if( curScore! > 50000 && curScore! < 150000 && curlevel < 2)
+            {
+                curlevel = 2
+                self.levelup()
+            }
+            else if( curScore! > 150000 && curScore! < 300000 && curlevel < 3)
+            {
+                curlevel = 3
+                self.levelup()
+            }
+            else if(curScore! > 150000 && curlevel < 4)
+            {
+                curlevel = 4
+                self.levelup()
+            }
+       /*switch  curScore!{
         case 0..<50000:
              level = 1
         case 50000..<100000:
@@ -245,10 +282,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
              level = 3
         default:
              level = 4
-        }
+        }*/
         }
         gameLevel.run(SKAction.run({() in
-            self.gameLevel.text = "\(level)"
+            self.gameLevel.text = "\(self.curlevel)"
         }))
         
     }
@@ -258,13 +295,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         self.heroPlane = HeroPlane.createHeroPlane()
         heroPlane.position = CGPoint(x: size.width / 2, y: size.height * 0.3)
         
+        
 //        heroPlane.physicsBody = SKPhysicsBody(texture:heroPlane.heroPlaneTexture1,size:heroPlane.size)
         heroPlane.zPosition = 1
         heroPlane.physicsBody?.isDynamic = true
         heroPlane.physicsBody?.allowsRotation = false
         heroPlane.physicsBody?.categoryBitMask = RoleCategory.heroPlane.rawValue
         heroPlane.physicsBody?.collisionBitMask = RoleCategory.enemyPlane.rawValue | RoleCategory.suply.rawValue
-        heroPlane.physicsBody?.contactTestBitMask = RoleCategory.enemyPlane.rawValue | RoleCategory.suply.rawValue        
+        heroPlane.physicsBody?.contactTestBitMask = RoleCategory.enemyPlane.rawValue | RoleCategory.suply.rawValue
+        print(heroPlane.hp)
         addChild(heroPlane)
         
         // fire bullets
@@ -441,6 +480,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
+    func levelup()  {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "LevelUpNotification"), object: nil)
+    }
+    
     func enemyPlaneCollision(_ enemyPlane:EnemyPlane)
     {
         enemyPlane.hp -= 1
@@ -504,10 +547,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     func upgradeHeroPlaneHp(_ heroPlane:HeroPlane){
         heroPlane.hp += 1
+        //add a life button
+        initGameLife()
+        
     }
     func heroPlanePlaneCollision(_ heroPlane:HeroPlane)
     {   print(heroPlane.hp)
         heroPlane.hp -= 1
+        initGameLife()
         if heroPlane.hp < 0 {
             heroPlane.hp = 0
         }
@@ -544,7 +591,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             {
                 score5 = finalscore
             }
-            
             heroPlane.run(heroPlaneBlowUpAction,completion:{() in
                 self.run(SKAction.sequence([
                     SKAction.playSoundFileNamed("game_over.mp3", waitForCompletion: true),

@@ -8,8 +8,8 @@
 
 import UIKit
 
-var score1 = 500000
-var score2 = 450000
-var score3 = 400000
-var score4 = 350000
-var score5 = 300000
+var score1 = 0
+var score2 = 0
+var score3 = 0
+var score4 = 0
+var score5 = 0
