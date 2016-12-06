@@ -2,7 +2,7 @@
 //  GameViewController.swift
 //  PlaneShooter
 //
-
+//  Created by 罗晗璐 on 2016/11/30.
 //  Copyright © 2016年 FloodSurge. All rights reserved.
 //
 
@@ -41,6 +41,7 @@ class GameViewController: UIViewController {
 
     var backButton:UIButton!
     var score:Int!
+    var curlevel:Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,7 @@ class GameViewController: UIViewController {
             // add button
             initButton()
             NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.gameOver), name: NSNotification.Name(rawValue: "gameOverNotification"), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.levelupAlert), name: NSNotification.Name(rawValue: "LevelUpNotification"), object: nil)
             
         }
     }
@@ -130,6 +132,37 @@ class GameViewController: UIViewController {
         continueButton.removeFromSuperview()
         isbackgroundView = true
         }
+    }
+    
+    func levelupAlert()
+    {
+        curlevel += 1
+        (view as! SKView).isPaused = true
+        let alertController = UIAlertController(
+            title: "Level Up!",
+            message: "Level --> " + String(curlevel),
+            preferredStyle: .alert)
+        
+        // 建立[確認]按鈕
+     /*   let okAction = UIAlertAction(
+            title: "Continue",
+            style: .default,
+            handler: {
+                (action: UIAlertAction!) -> Void in
+                (self.view as! SKView).isPaused = false
+        })
+        alertController.addAction(okAction)*/
+        
+        // 顯示提示框
+        self.present(alertController,
+                     animated: true, completion: nil)
+        self.perform(#selector(dismissAlert), with: alertController, afterDelay: 1)
+    }
+    
+    func dismissAlert(alertController: UIAlertController)
+    {
+        alertController.dismiss(animated: true, completion: nil)
+        (self.view as! SKView).isPaused = false
     }
     
     func pause(){

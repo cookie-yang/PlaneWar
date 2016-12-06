@@ -22,6 +22,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var largePlaneHitAction:SKAction!
     var largePlaneBlowUpAction:SKAction!
     var heroPlaneBlowUpAction:SKAction!
+    var curlevel:Int = 1
     
     enum RoleCategory:UInt32{
         case bullet = 1
@@ -225,9 +226,23 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     func changeGameLevel()
     {
         let curScore = Int(scoreLabel.text!)
-        var level:Int = 1
         if curScore != nil {
-        switch  curScore!{
+            if( curScore! > 50000 && curScore! < 150000 && curlevel < 2)
+            {
+                curlevel = 2
+                self.levelup()
+            }
+            else if( curScore! > 150000 && curScore! < 300000 && curlevel < 3)
+            {
+                curlevel = 3
+                self.levelup()
+            }
+            else if(curScore! > 150000 && curlevel < 4)
+            {
+                curlevel = 4
+                self.levelup()
+            }
+       /*switch  curScore!{
         case 0..<50000:
              level = 1
         case 50000..<150000:
@@ -236,10 +251,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
              level = 3
         default:
              level = 4
-        }
+        }*/
         }
         gameLevel.run(SKAction.run({() in
-            self.gameLevel.text = "\(level)"
+            self.gameLevel.text = "\(self.curlevel)"
         }))
         
     }
@@ -431,6 +446,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             
             
         }
+    }
+    
+    func levelup()  {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "LevelUpNotification"), object: nil)
     }
     
     func enemyPlaneCollision(_ enemyPlane:EnemyPlane)
