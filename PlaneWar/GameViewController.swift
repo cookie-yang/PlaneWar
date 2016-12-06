@@ -41,7 +41,7 @@ class GameViewController: UIViewController {
 
     var backButton:UIButton!
     var score:Int!
-    var curlevel:Int = 1
+    var levelupLabel:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,14 +62,14 @@ class GameViewController: UIViewController {
             skView.presentScene(scene)
             
             // add button
-            initButton()
+            initView()
             NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.gameOver), name: NSNotification.Name(rawValue: "gameOverNotification"), object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.levelupAlert), name: NSNotification.Name(rawValue: "LevelUpNotification"), object: nil)
             
         }
     }
     
-    func initButton(){
+    func initView(){
         let buttonImage = UIImage(named:"BurstAircraftPause")!
         
         pauseButton = UIButton()
@@ -113,7 +113,17 @@ class GameViewController: UIViewController {
         continueButton.layer.borderColor = UIColor.gray.cgColor
         continueButton.addTarget(self, action: #selector(GameViewController.continueGame(_:)), for: .touchUpInside)
         view.addSubview(continueButton)
-
+        
+        levelupLabel = UILabel()
+        levelupLabel.bounds = CGRect(x: 0, y: 0, width: 150, height: 120)
+        levelupLabel.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 - 30)
+        levelupLabel.isHidden = true
+        levelupLabel.text = "Level Up!"
+        levelupLabel.textColor = UIColor.yellow
+        levelupLabel.font = UIFont(name:"ChalkboardSE-Bold", size:30)
+        levelupLabel.layer.borderColor = UIColor.black.cgColor
+        view.addSubview(levelupLabel)
+        
 
     }
 
@@ -136,33 +146,13 @@ class GameViewController: UIViewController {
     
     func levelupAlert()
     {
-        curlevel += 1
-        (view as! SKView).isPaused = true
-        let alertController = UIAlertController(
-            title: "Level Up!",
-            message: "Level --> " + String(curlevel),
-            preferredStyle: .alert)
-        
-        // 建立[確認]按鈕
-     /*   let okAction = UIAlertAction(
-            title: "Continue",
-            style: .default,
-            handler: {
-                (action: UIAlertAction!) -> Void in
-                (self.view as! SKView).isPaused = false
-        })
-        alertController.addAction(okAction)*/
-        
-        // 顯示提示框
-        self.present(alertController,
-                     animated: true, completion: nil)
-        self.perform(#selector(dismissAlert), with: alertController, afterDelay: 1)
+        levelupLabel.isHidden = false
+        self.perform(#selector(dismissAlert), with: levelupLabel, afterDelay: 0.5)
     }
     
-    func dismissAlert(alertController: UIAlertController)
+    func dismissAlert(leveluplabel: UILabel)
     {
-        alertController.dismiss(animated: true, completion: nil)
-        (self.view as! SKView).isPaused = false
+        levelupLabel.isHidden = true
     }
     
     func pause(){
@@ -170,7 +160,6 @@ class GameViewController: UIViewController {
         restartButton.isHidden = false
         continueButton.isHidden = false
         backButton.isHidden = false
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "pauseNotification"), object: nil)
     }
     
     func backHome(){
@@ -187,7 +176,7 @@ class GameViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "restartNotification"), object: nil)
         if isbackgroundView == true{
             backgroundView.removeFromSuperview()
-            initButton()
+            initView()
             isbackgroundView = false
         }
         
