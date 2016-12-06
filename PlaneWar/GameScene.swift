@@ -13,6 +13,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var scoreLabel:SKLabelNode!
     var pauseButton:SKSpriteNode!
     var gameLevel:SKLabelNode!
+    var ispause:Bool = false
     
     
     var smallPlaneHitAction:SKAction!
@@ -39,6 +40,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         initGameLevel()
         initSupply()
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.restart), name: NSNotification.Name(rawValue: "restartNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GameScene.pause), name: NSNotification.Name(rawValue: "pauseNotification"), object: nil)
+        
     }
     
     func restart(){
@@ -72,6 +75,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         /* Called before each frame is rendered */
     }
     
+    func pause()
+    {
+        self.ispause = true
+    }
+    
     func initBackground()
     {
         // init texture
@@ -80,7 +88,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         // set action
         
 
-        let moveBackgroundSprite = SKAction.moveBy(x: 0, y:-backgroundTexture.size().height, duration: 15)
+        let moveBackgroundSprite = SKAction.moveBy(x: 0, y:-backgroundTexture.size().height-10, duration: 15)
         let resetBackgroundSprite = SKAction.moveBy(x: 0, y:backgroundTexture.size().height, duration: 0)
         let moveBackgroundForever = SKAction.repeatForever(SKAction.sequence([moveBackgroundSprite,resetBackgroundSprite]))
         
@@ -96,8 +104,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         
         // play background music
-
-        run(SKAction.repeatForever(SKAction.playSoundFileNamed("game_music.mp3", waitForCompletion: true)))
+//        while(ispause == false){
+//        }
+     run(SKAction.repeatForever(SKAction.playSoundFileNamed("game_music.mp3",waitForCompletion: true)))
         
         // set physics world
         physicsWorld.contactDelegate = self
@@ -116,26 +125,26 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         var smallPlaneHitTexture = [SKTexture]()
         smallPlaneHitTexture.append(SKTexture(imageNamed:"enemy1_hit_1.png"))
         smallPlaneHitTexture.append(SKTexture(imageNamed:"enemy1_fly_1.png"))
-        smallPlaneHitAction = SKAction.animate(with: smallPlaneHitTexture, timePerFrame: 0.1)
+        smallPlaneHitAction = SKAction.animate(with: smallPlaneHitTexture, timePerFrame: 0.2)
         
         // medium hit action
         var mediumPlaneHitTexture = [SKTexture]()
         mediumPlaneHitTexture.append(SKTexture(imageNamed:"enemy3_hit_1.png"))
         mediumPlaneHitTexture.append(SKTexture(imageNamed:"enemy3_fly_1.png"))
-        mediumPlaneHitAction = SKAction.animate(with: mediumPlaneHitTexture, timePerFrame: 0.1)
+        mediumPlaneHitAction = SKAction.animate(with: mediumPlaneHitTexture, timePerFrame: 0.2)
         
         // large hit action
         var largePlaneHitTexture = [SKTexture]()
         largePlaneHitTexture.append(SKTexture(imageNamed:"enemy2_hit_1.png"))
         largePlaneHitTexture.append(SKTexture(imageNamed:"enemy2_fly_2.png"))
-        largePlaneHitAction = SKAction.animate(with: largePlaneHitTexture, timePerFrame: 0.1)
+        largePlaneHitAction = SKAction.animate(with: largePlaneHitTexture, timePerFrame: 0.2)
         
         // small blow up action
         var smallPlaneBlowUpTexture = [SKTexture]()
         for i in 1...4 {
             smallPlaneBlowUpTexture.append(SKTexture(imageNamed:"enemy1_blowup_\(i).png"))
         }
-        smallPlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: smallPlaneBlowUpTexture, timePerFrame: 0.03),SKAction.removeFromParent()])
+        smallPlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: smallPlaneBlowUpTexture, timePerFrame: 0.1),SKAction.removeFromParent()])
 
         
         // medium blow up action
@@ -144,7 +153,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             print(i)
             mediumPlaneBlowUpTexture.append(SKTexture(imageNamed:"enemy3_blowup_\(i).png"))
         }
-        mediumPlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: mediumPlaneBlowUpTexture, timePerFrame: 0.05),SKAction.removeFromParent()])
+        mediumPlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: mediumPlaneBlowUpTexture, timePerFrame: 0.2),SKAction.removeFromParent()])
         
         
         // large blow up action
@@ -152,14 +161,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         for i in 1...5 {
             largePlaneBlowUpTexture.append(SKTexture(imageNamed:"enemy2_blowup_\(i).png"))
         }
-        largePlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: largePlaneBlowUpTexture, timePerFrame: 0.1),SKAction.removeFromParent()])
+        largePlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: largePlaneBlowUpTexture, timePerFrame: 0.2),SKAction.removeFromParent()])
         
         // hero plane blow up action
         var heroPlaneBlowUpTexture = [SKTexture]()
         for i in 1...4 {
             heroPlaneBlowUpTexture.append(SKTexture(imageNamed:"hero_blowup_\(i).png"))
         }
-        heroPlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: heroPlaneBlowUpTexture, timePerFrame: 0.1),SKAction.removeFromParent()])
+        heroPlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: heroPlaneBlowUpTexture, timePerFrame: 0.2),SKAction.removeFromParent()])
         
     }
     
@@ -168,7 +177,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         scoreLabel = SKLabelNode(fontNamed:"MarkerFelt-Thin")
         scoreLabel.text = "0000"
         scoreLabel.zPosition = 2
-        scoreLabel.fontColor = SKColor.black
+        scoreLabel.fontColor = SKColor.red
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.position = CGPoint(x: 50, y: size.height - 52)
         addChild(scoreLabel)
@@ -215,7 +224,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         let gameLevelText = SKLabelNode(fontNamed:"MarkerFelt-Thin")
         gameLevelText.text = "Level:"
         gameLevelText.zPosition = 2
-        gameLevelText.fontColor = SKColor.gray
+        gameLevelText.fontColor = SKColor.yellow
         gameLevelText.horizontalAlignmentMode = .right
         gameLevelText.position = CGPoint(x: size.width-37, y: size.height - 52)
         addChild(gameLevelText)
@@ -230,9 +239,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         switch  curScore!{
         case 0..<50000:
              level = 1
-        case 50000..<150000:
+        case 50000..<100000:
              level = 2
-        case 150000..<300000:
+        case 100000..<150000:
              level = 3
         default:
              level = 4
@@ -324,7 +333,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             speed = Float(arc4random() % 3) + 8.0-Float(Int(self.gameLevel.text!)!)
             enemyPlane = EnemyPlane.createLargePlane()
             enemyPlane.hp = 5+Int(self.gameLevel.text!)!
-            run(SKAction.playSoundFileNamed("enemy2_out.mp3", waitForCompletion: false))
+//            run(SKAction.playSoundFileNamed("enemy2_out.mp3", waitForCompletion: false))
         }
         
         enemyPlane.zPosition = 1
@@ -392,7 +401,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         if collision == RoleCategory.enemyPlane.rawValue | RoleCategory.bullet.rawValue
         {
-            print("------>1")
             let enemyPlane = (contact.bodyA.categoryBitMask & RoleCategory.enemyPlane.rawValue) == RoleCategory.enemyPlane.rawValue
                 ? (contact.bodyA.node as! EnemyPlane) : (contact.bodyB.node as! EnemyPlane)
             
@@ -410,7 +418,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             
             // hit hero plane
             let heroPlane = contact.bodyA.categoryBitMask & RoleCategory.heroPlane.rawValue == RoleCategory.heroPlane.rawValue ? contact.bodyA.node as! HeroPlane : contact.bodyB.node as! HeroPlane
-            enemyPlaneCollision(enemyPlane)
+            enemyPlaneHit(enemyPlane)
             heroPlanePlaneCollision(heroPlane)
             
         }
@@ -435,7 +443,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     func enemyPlaneCollision(_ enemyPlane:EnemyPlane)
     {
-        print("------>2")
         enemyPlane.hp -= 1
         if enemyPlane.hp < 0 {
             enemyPlane.hp = 0
@@ -471,6 +478,27 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }
         }
     }
+    func enemyPlaneHit(_ enemyPlane:EnemyPlane)
+    {
+        enemyPlane.physicsBody?.categoryBitMask = 0
+        switch enemyPlane.type{
+        case .small:
+             changeScore(.small)
+             enemyPlane.run(smallPlaneBlowUpAction)
+             run(SKAction.playSoundFileNamed("enemy1_down.mp3", waitForCompletion: false))
+             changeGameLevel()
+        case .large:
+             changeScore(.large)
+             enemyPlane.run(largePlaneBlowUpAction)
+             run(SKAction.playSoundFileNamed("enemy2_down.mp3", waitForCompletion: false))
+             changeGameLevel()
+        case .medium:
+             changeScore(.medium)
+             enemyPlane.run(mediumPlaneBlowUpAction)
+             run(SKAction.playSoundFileNamed("enemy3_down.mp3", waitForCompletion: false))
+             changeGameLevel()
+            }
+    }
     func upgradeHeroPlaneBullet(_ heroPlane:HeroPlane){
         heroPlane.weaponLevel += 1
     }
@@ -478,13 +506,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         heroPlane.hp += 1
     }
     func heroPlanePlaneCollision(_ heroPlane:HeroPlane)
-    {
+    {   print(heroPlane.hp)
         heroPlane.hp -= 1
         if heroPlane.hp < 0 {
             heroPlane.hp = 0
         }
         if heroPlane.hp == 0{
-            print("hit plane")
             var finalscore = Int(self.scoreLabel.text!)!
             if finalscore > score1
             {
@@ -525,7 +552,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         let label = SKLabelNode(fontNamed:"MarkerFelt-Thin")
                         label.text = "GameOver"
                         label.zPosition = 2
-                        label.fontColor = SKColor.black
+                        label.fontColor = SKColor.red
                         label.position = CGPoint(x: self.size.width/2, y: self.size.height/2 + 20)
                         self.addChild(label)
                     })

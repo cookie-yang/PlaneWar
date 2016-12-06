@@ -137,6 +137,7 @@ class GameViewController: UIViewController {
         restartButton.isHidden = false
         continueButton.isHidden = false
         backButton.isHidden = false
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "pauseNotification"), object: nil)
     }
     
     func backHome(){
