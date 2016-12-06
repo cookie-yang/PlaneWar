@@ -39,6 +39,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         initScoreLabel()
         initGameLevel()
         initSupply()
+        initGameLife()
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.restart), name: NSNotification.Name(rawValue: "restartNotification"), object: nil)
     }
     
@@ -53,6 +54,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         initHeroPlane()
         initEnemyPlane()
         initSupply()
+        initGameLife()
         
         
     }
@@ -73,6 +75,28 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         /* Called before each frame is rendered */
     }
     
+    func initGameLife(){
+        var lifeSprite = [SKSpriteNode]()
+        if(heroPlane.hp <= 0){
+//            self.removeAllChildren()
+//            self.removeAllActions()
+            print("aaa")
+        }
+        else{
+            for index in 0 ... 4  {
+                let lifeTexture = SKTexture(imageNamed:"hero_fly_1")
+                lifeSprite.append(SKSpriteNode(texture:lifeTexture))
+                lifeSprite[index].setScale(0.2)
+                lifeSprite[index].name = "\(index)"
+                lifeSprite[index].position = CGPoint(x: 350 - index * 30, y: 32 )
+                if(index <= heroPlane.hp - 1){
+                    addChild(lifeSprite[index])
+                }
+//                removeChildren(in: childNode(withName: "\(index)"))
+            }
+        }
+    }
+    
     func initBackground()
     {
         // init texture
@@ -88,7 +112,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         // init background sprite
         
         for index in 0..<2 {
-   
             let backgroundSprite = SKSpriteNode(texture:backgroundTexture)
             backgroundSprite.position = CGPoint(x: size.width/2,y: size.height / 2 + CGFloat(index) * backgroundSprite.size.height)
             backgroundSprite.zPosition = 0
@@ -264,13 +287,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         self.heroPlane = HeroPlane.createHeroPlane()
         heroPlane.position = CGPoint(x: size.width / 2, y: size.height * 0.3)
         
+        
 //        heroPlane.physicsBody = SKPhysicsBody(texture:heroPlane.heroPlaneTexture1,size:heroPlane.size)
         heroPlane.zPosition = 1
         heroPlane.physicsBody?.isDynamic = true
         heroPlane.physicsBody?.allowsRotation = false
         heroPlane.physicsBody?.categoryBitMask = RoleCategory.heroPlane.rawValue
         heroPlane.physicsBody?.collisionBitMask = RoleCategory.enemyPlane.rawValue | RoleCategory.suply.rawValue
-        heroPlane.physicsBody?.contactTestBitMask = RoleCategory.enemyPlane.rawValue | RoleCategory.suply.rawValue        
+        heroPlane.physicsBody?.contactTestBitMask = RoleCategory.enemyPlane.rawValue | RoleCategory.suply.rawValue
+        print(heroPlane.hp)
         addChild(heroPlane)
         
         // fire bullets
@@ -495,47 +520,52 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     func upgradeHeroPlaneHp(_ heroPlane:HeroPlane){
         heroPlane.hp += 1
+        //add a life button
+        initGameLife()
+        
     }
     func heroPlanePlaneCollision(_ heroPlane:HeroPlane)
     {
+        print("------->hp after collision \(heroPlane.hp)")
         heroPlane.hp -= 1
+        initGameLife()
         if heroPlane.hp < 0 {
             heroPlane.hp = 0
         }
         if heroPlane.hp == 0{
             print("hit plane")
-            var finalscore = Int(self.scoreLabel.text!)!
-            if finalscore > score1
-            {
-                score5 = score4
-                score4 = score3
-                score3 = score2
-                score2 = score1
-                score1 = finalscore
-            }
-            else if (finalscore > score2 && finalscore < score1 )
-            {
-                score5 = score4
-                score4 = score3
-                score3 = score2
-                score2 = finalscore
-            }
-            else if (finalscore > score3 && finalscore < score2 )
-            {
-                score5 = score4
-                score4 = score3
-                score3 = finalscore
-            }
-            else if (finalscore > score4 && finalscore < score3 )
-            {
-                score5 = score4
-                score4 = finalscore
-            }
-            else if (finalscore > score5 && finalscore < score4 )
-
-            {
-                score5 = finalscore
-            }
+//            var finalscore = Int(self.scoreLabel.text!)!
+//            if finalscore > score1
+//            {
+//                score5 = score4
+//                score4 = score3
+//                score3 = score2
+//                score2 = score1
+//                score1 = finalscore
+//            }
+//            else if (finalscore > score2 && finalscore < score1 )
+//            {
+//                score5 = score4
+//                score4 = score3
+//                score3 = score2
+//                score2 = finalscore
+//            }
+//            else if (finalscore > score3 && finalscore < score2 )
+//            {
+//                score5 = score4
+//                score4 = score3
+//                score3 = finalscore
+//            }
+//            else if (finalscore > score4 && finalscore < score3 )
+//            {
+//                score5 = score4
+//                score4 = finalscore
+//            }
+//            else if (finalscore > score5 && finalscore < score4 )
+//
+//            {
+//                score5 = finalscore
+//            }
             
             heroPlane.run(heroPlaneBlowUpAction,completion:{() in
                 self.run(SKAction.sequence([
