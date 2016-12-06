@@ -150,7 +150,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         // large blow up action
         var largePlaneBlowUpTexture = [SKTexture]()
-        for i in 1...5 {
+        for i in 1...4 {
             largePlaneBlowUpTexture.append(SKTexture(imageNamed:"enemy2_blowup_\(i).png"))
         }
         largePlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: largePlaneBlowUpTexture, timePerFrame: 0.1),SKAction.removeFromParent()])
@@ -481,7 +481,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     func upgradeHeroPlaneBullet(_ heroPlane:HeroPlane){
+        if(heroPlane.weaponLevel < 4)
+        {
         heroPlane.weaponLevel += 1
+        }
+        else
+        {
+        heroPlane.weaponLevel = 4
+        }
+
+        
     }
     func upgradeHeroPlaneHp(_ heroPlane:HeroPlane){
         heroPlane.hp += 1
