@@ -181,7 +181,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         // large blow up action
         var largePlaneBlowUpTexture = [SKTexture]()
-        for i in 1...5 {
+        for i in 1...4 {
             largePlaneBlowUpTexture.append(SKTexture(imageNamed:"enemy2_blowup_\(i).png"))
         }
         largePlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: largePlaneBlowUpTexture, timePerFrame: 0.2),SKAction.removeFromParent()])
@@ -256,9 +256,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 
     func changeGameLevel()
     {
-        let curScore = Int(scoreLabel.text!)
+        print("-------->")
+        print(scoreLabel.text!)
+        var curScore = Int(scoreLabel.text!)
         if curScore != nil {
-            if( curScore! > 50000 && curScore! < 150000 && curlevel < 2)
+            if(curScore! < 10000)
+            {
+                curlevel = 1
+            }
+            if( curScore! > 10000 && curScore! < 150000 && curlevel < 2)
             {
                 curlevel = 2
                 self.levelup()
@@ -502,6 +508,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             
         } else
         {
+            enemyPlane.physicsBody?.categoryBitMask = 0
             switch enemyPlane.type{
             case .small:
                 changeScore(.small)
