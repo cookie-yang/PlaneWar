@@ -150,7 +150,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         _{
             print("no background music")
         }
+        backgroundMusic.numberOfLoops = -1
         backgroundMusic.play()
+        
         
 //        backgroundSprite.isPaused = true
         // set physics world
@@ -352,7 +354,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         bullet.physicsBody?.categoryBitMask = RoleCategory.bullet.rawValue
         bullet.physicsBody?.collisionBitMask = RoleCategory.enemyPlane.rawValue
         bullet.physicsBody?.contactTestBitMask = RoleCategory.enemyPlane.rawValue
-        bullet.run(SKAction.playSoundFileNamed("bullet.mp3", waitForCompletion: false))
+        bullet.run(SKAction.playSoundFileNamed("bullet.mp3", waitForCompletion: true))
         addChild(bullet)
         // play bullet music
         
