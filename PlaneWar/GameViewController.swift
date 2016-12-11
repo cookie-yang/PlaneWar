@@ -49,8 +49,8 @@ class GameViewController: UIViewController {
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             // Configure the view.
             let skView = self.view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+
+
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
@@ -156,7 +156,8 @@ class GameViewController: UIViewController {
     }
     
     func pause(){
-        (view as! SKView).isPaused = true
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"pauseNotification"),object:nil)
+//        (view as! SKScene).isPaused = true
         restartButton.isHidden = false
         continueButton.isHidden = false
         backButton.isHidden = false
@@ -183,11 +184,11 @@ class GameViewController: UIViewController {
     }
     
     func continueGame(_ button:UIButton){
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"continueNotification"),object:nil)
         continueButton.isHidden = true
         restartButton.isHidden = true
         backButton.isHidden = true
-
-        (view as! SKView).isPaused = false
+        
     }
    
     override var shouldAutorotate : Bool {

@@ -6,6 +6,7 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
     
@@ -13,7 +14,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var scoreLabel:SKLabelNode!
     var pauseButton:SKSpriteNode!
     var gameLevel:SKLabelNode!
-    
+    var backgroundMusic:AVAudioPlayer!
     
     var smallPlaneHitAction:SKAction!
     var smallPlaneBlowUpAction:SKAction!
@@ -39,13 +40,18 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         initScoreLabel()
         initGameLevel()
         initSupply()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.restart), name: NSNotification.Name(rawValue: "restartNotification"), object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.pause), name: NSNotification.Name(rawValue: "pauseNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GameScene.continuegame), name: NSNotification.Name(rawValue: "continueNotification"), object: nil)
     }
     
     func restart(){
         removeAllChildren()
         removeAllActions()
+        backgroundMusic.stop()
         
+        self.isPaused = false
         initBackground()
         initActions()
         initScoreLabel()
@@ -55,6 +61,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         initSupply()
         curlevel = 1
         
+    }
+    func pause(){
+        backgroundMusic.pause()
+        self.isPaused = true
+    }
+    func continuegame(){
+        self.isPaused = false
+        backgroundMusic.play()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -79,30 +93,37 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         let backgroundTexture = SKTexture(imageNamed:"background.png")
         backgroundTexture.filteringMode = .nearest
         // set action
-        
-
         let moveBackgroundSprite = SKAction.moveBy(x: 0, y:-backgroundTexture.size().height, duration: 15)
         let resetBackgroundSprite = SKAction.moveBy(x: 0, y:backgroundTexture.size().height, duration: 0)
         let moveBackgroundForever = SKAction.repeatForever(SKAction.sequence([moveBackgroundSprite,resetBackgroundSprite]))
-        
         // init background sprite
         
         for index in 0..<2 {
-   
             let backgroundSprite = SKSpriteNode(texture:backgroundTexture)
             backgroundSprite.position = CGPoint(x: size.width/2,y: size.height / 2 + CGFloat(index) * backgroundSprite.size.height)
             backgroundSprite.zPosition = 0
-            backgroundSprite.run(moveBackgroundForever)
+            backgroundSprite.run(moveBackgroundForever,withKey:"movebackground")
             addChild(backgroundSprite)
+            
         }
-        
         // play background music
-
-        run(SKAction.repeatForever(SKAction.playSoundFileNamed("game_music.mp3", waitForCompletion: true)))
+        let path = Bundle.main.path(forResource: "game_music.mp3", ofType:nil)!
+        let backgroundMusicURL = URL(fileURLWithPath: path)
+        do
+        {
+          backgroundMusic = try AVAudioPlayer.init(contentsOf: backgroundMusicURL)
+        }
+        catch
+        _{
+            print("no background music")
+        }
+        backgroundMusic.play()
         
+//        backgroundSprite.isPaused = true
         // set physics world
+        
         physicsWorld.contactDelegate = self
-        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         
     }
     
@@ -173,7 +194,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.position = CGPoint(x: 50, y: size.height - 52)
         addChild(scoreLabel)
-        
 //        let scoreLabelText = SKLabelNode(fontNamed:"MarkerFelt-Thin")
 //        scoreLabelText.text = "Score:"
 //        scoreLabelText.zPosition = 2
@@ -289,12 +309,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         bullet.physicsBody?.categoryBitMask = RoleCategory.bullet.rawValue
         bullet.physicsBody?.collisionBitMask = RoleCategory.enemyPlane.rawValue
         bullet.physicsBody?.contactTestBitMask = RoleCategory.enemyPlane.rawValue
-        
+        bullet.run(SKAction.playSoundFileNamed("bullet.mp3", waitForCompletion: false))
         addChild(bullet)
-        
         // play bullet music
         
-        run(SKAction.playSoundFileNamed("bullet.mp3", waitForCompletion: false))
+//        run(SKAction.playSoundFileNamed("bullet.mp3", waitForCompletion: false))
         
     }
     
@@ -307,6 +326,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func createEnemyPlane(){
+        enemyPlaneArray = Array<enemyPlane>()
         let choose = arc4random() % 100
         var type:EnemyPlaneType
         var speed:Float
@@ -342,10 +362,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         let x = (arc4random() % 270) + 30
         enemyPlane.position = CGPoint(x: CGFloat(x), y: size.height + enemyPlane.size.height/2)
         
+        
         let moveAction = SKAction.moveTo(y: 0, duration: TimeInterval(speed))
         let remove = SKAction.removeFromParent()
+
         enemyPlane.run(SKAction.sequence([moveAction,remove]))
-        
         addChild(enemyPlane)
         
         
@@ -394,10 +415,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact)
     {
         
+
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         if collision == RoleCategory.enemyPlane.rawValue | RoleCategory.bullet.rawValue
         {
-            print("------>1")
             let enemyPlane = (contact.bodyA.categoryBitMask & RoleCategory.enemyPlane.rawValue) == RoleCategory.enemyPlane.rawValue
                 ? (contact.bodyA.node as! EnemyPlane) : (contact.bodyB.node as! EnemyPlane)
             
@@ -444,7 +465,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     func enemyPlaneCollision(_ enemyPlane:EnemyPlane)
     {
-        print("------>2")
         enemyPlane.hp -= 1
         if enemyPlane.hp < 0 {
             enemyPlane.hp = 0
