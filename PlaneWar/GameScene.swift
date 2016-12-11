@@ -103,7 +103,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             lifeSprite[heroPlane.hp-1].name = "\(heroPlane.hp-1)"
             lifeSprite[heroPlane.hp-1].position = CGPoint(x: 350 - (heroPlane.hp-1) * 30, y: 32 )
             addChild(lifeSprite[heroPlane.hp-1])
-            
         case 1:
             let lifeTexture = SKTexture(imageNamed:"hero_fly_1")
             lifeSprite.append(SKSpriteNode(texture:lifeTexture))
@@ -112,12 +111,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             lifeSprite[heroPlane.hp-1].position = CGPoint(x: 350 - (heroPlane.hp-1) * 30, y: 32 )
             addChild(lifeSprite[heroPlane.hp-1])
         case 2:
-            if(lifeSprite != nil){
             lifeSprite.removeLast()
             var tmp = [SKSpriteNode]()
             tmp.append(childNode(withName: "\(heroPlane.hp)") as! SKSpriteNode)
             removeChildren(in: tmp)
-            }
         default:
             print("default")
         }
@@ -333,7 +330,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     func createBullet()
     {
-        let bulletTexture = SKTexture(imageNamed:"bullet\(self.heroPlane.weaponLevel)")
+        var bulletTexture:SKTexture
+        if(heroPlane.weaponLevel > 4)
+        {
+            bulletTexture = SKTexture(imageNamed:"bullet4")
+        }
+        else{
+            bulletTexture = SKTexture(imageNamed:"bullet\(self.heroPlane.weaponLevel)")
+        }
         let bullet = SKSpriteNode(texture:bulletTexture)
         bullet.setScale(0.5)
         bullet.position = CGPoint(x: heroPlane.position.x, y: heroPlane.position.y + heroPlane.size.height/2 + bullet.size.height/2)
@@ -518,7 +522,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }
             
         } else
-        {
+        {   enemyPlane.physicsBody?.categoryBitMask = 0
             switch enemyPlane.type{
             case .small:
                 changeScore(.small)
@@ -576,6 +580,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             heroPlane.hp = 0
         }
         if heroPlane.hp == 0{
+            heroPlane.physicsBody?.categoryBitMask = 0
             var finalscore = Int(self.scoreLabel.text!)!
             if finalscore > score1
             {
