@@ -33,9 +33,9 @@
 		D44162311DF56C3200E15457 /* BurstAircraftPause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D441622F1DF56C3200E15457 /* BurstAircraftPause@2x.png */; };
 		D45D404B1DF07D8A0007B6D5 /* RuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45D404A1DF07D8A0007B6D5 /* RuleViewController.swift */; };
 		D467FC741DF64E6C00464ED2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D467FC721DF64E6C00464ED2 /* Main.storyboard */; };
+		D47EF5C71DFDB3FE007F63C3 /* background1_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D47EF5C61DFDB3FE007F63C3 /* background1_1.png */; };
 		D4E8620D1DEF1A1400481479 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E8620C1DEF1A1400481479 /* HomeViewController.swift */; };
 		D4E8620F1DEF1F6100481479 /* StatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E8620E1DEF1F6100481479 /* StatisticViewController.swift */; };
-		D4E862141DEF3D0700481479 /* background1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4E862121DEF3D0600481479 /* background1.png */; };
 		D4E862151DEF3D0700481479 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = D4E862131DEF3D0600481479 /* background2.png */; };
 		D4FD9A021DF0867400D31DE3 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FD9A011DF0867400D31DE3 /* Score.swift */; };
 		FA0578801DF66C86008FD23E /* hero_fly_1.png in Resources */ = {isa = PBXBuildFile; fileRef = FA05787F1DF66C86008FD23E /* hero_fly_1.png */; };
@@ -82,9 +82,9 @@
 		D441622F1DF56C3200E15457 /* BurstAircraftPause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BurstAircraftPause@2x.png"; sourceTree = "<group>"; };
 		D45D404A1DF07D8A0007B6D5 /* RuleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleViewController.swift; sourceTree = "<group>"; };
 		D467FC731DF64E6C00464ED2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D47EF5C61DFDB3FE007F63C3 /* background1_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background1_1.png; sourceTree = "<group>"; };
 		D4E8620C1DEF1A1400481479 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D4E8620E1DEF1F6100481479 /* StatisticViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticViewController.swift; sourceTree = "<group>"; };
-		D4E862121DEF3D0600481479 /* background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background1.png; sourceTree = "<group>"; };
 		D4E862131DEF3D0600481479 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background2.png; sourceTree = "<group>"; };
 		D4FD9A011DF0867400D31DE3 /* Score.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		FA05787F1DF66C86008FD23E /* hero_fly_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hero_fly_1.png; sourceTree = "<group>"; };
@@ -129,6 +129,7 @@
 		44DBC6B6194B34640067162C /* PlaneWar */ = {
 			isa = PBXGroup;
 			children = (
+				D47EF5C61DFDB3FE007F63C3 /* background1_1.png */,
 				D441622E1DF56C3200E15457 /* BurstAircraftPause.png */,
 				D441622F1DF56C3200E15457 /* BurstAircraftPause@2x.png */,
 				D41D59C61DF3292500CC9F07 /* gamerules.png */,
@@ -137,7 +138,6 @@
 				FA05787F1DF66C86008FD23E /* hero_fly_1.png */,
 				D41D59C01DF317C900CC9F07 /* rulebutton.png */,
 				D41D59BE1DF3170900CC9F07 /* startbutton.png */,
-				D4E862121DEF3D0600481479 /* background1.png */,
 				D4E862131DEF3D0600481479 /* background2.png */,
 				44DBC6DC194B34850067162C /* sounds */,
 				44DBC6E4194B34850067162C /* textures.atlas */,
@@ -292,8 +292,8 @@
 				44DBC6E8194B34850067162C /* enemy1_down.mp3 in Resources */,
 				D41D59C51DF319B400CC9F07 /* homebutton.png in Resources */,
 				D44162301DF56C3200E15457 /* BurstAircraftPause.png in Resources */,
+				D47EF5C71DFDB3FE007F63C3 /* background1_1.png in Resources */,
 				FA0578801DF66C86008FD23E /* hero_fly_1.png in Resources */,
-				D4E862141DEF3D0700481479 /* background1.png in Resources */,
 				44DBC6EC194B34850067162C /* game_music.mp3 in Resources */,
 				D467FC741DF64E6C00464ED2 /* Main.storyboard in Resources */,
 				D4E862151DEF3D0700481479 /* background2.png in Resources */,

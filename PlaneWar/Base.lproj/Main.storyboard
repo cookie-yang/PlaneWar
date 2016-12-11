@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background1.png" translatesAutoresizingMaskIntoConstraints="NO" id="BDy-si-4nb">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background1_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="BDy-si-4nb">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -283,7 +283,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background1.png" width="750" height="1334"/>
+        <image name="background1_1.png" width="750" height="1334"/>
         <image name="background2.png" width="512" height="768"/>
         <image name="gamerules.png" width="512" height="768"/>
         <image name="homebutton.png" width="200" height="50"/>
