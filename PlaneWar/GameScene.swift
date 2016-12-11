@@ -91,18 +91,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         /* Called before each frame is rendered */
     }
     
-    func pause()
-    {
-        self.ispause = true
-    }
     
     func initGameLife(_ lifetype: Int){
         //0 is init , 1 is add hp , 2 is minus hp
         
         switch lifetype {
         case 0:
-            print("case0")
-            print("\(heroPlane.hp)")
             let lifeTexture = SKTexture(imageNamed:"hero_fly_1")
             lifeSprite.append(SKSpriteNode(texture:lifeTexture))
             lifeSprite[heroPlane.hp-1].setScale(0.2)
@@ -111,7 +105,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             addChild(lifeSprite[heroPlane.hp-1])
             
         case 1:
-            print("\(heroPlane.hp)")
             let lifeTexture = SKTexture(imageNamed:"hero_fly_1")
             lifeSprite.append(SKSpriteNode(texture:lifeTexture))
             lifeSprite[heroPlane.hp-1].setScale(0.2)
@@ -119,11 +112,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             lifeSprite[heroPlane.hp-1].position = CGPoint(x: 350 - (heroPlane.hp-1) * 30, y: 32 )
             addChild(lifeSprite[heroPlane.hp-1])
         case 2:
-            print("\(heroPlane.hp)")
+            if(lifeSprite != nil){
+            lifeSprite.removeLast()
             var tmp = [SKSpriteNode]()
             tmp.append(childNode(withName: "\(heroPlane.hp)") as! SKSpriteNode)
             removeChildren(in: tmp)
-            print("remove ")
+            }
         default:
             print("default")
         }
@@ -213,7 +207,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         // large blow up action
         var largePlaneBlowUpTexture = [SKTexture]()
-        for i in 1...5 {
+        for i in 1...4 {
             largePlaneBlowUpTexture.append(SKTexture(imageNamed:"enemy2_blowup_\(i).png"))
         }
         largePlaneBlowUpAction = SKAction.sequence([SKAction.animate(with: largePlaneBlowUpTexture, timePerFrame: 0.2),SKAction.removeFromParent()])
@@ -232,7 +226,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         scoreLabel = SKLabelNode(fontNamed:"MarkerFelt-Thin")
         scoreLabel.text = "0000"
         scoreLabel.zPosition = 2
-        scoreLabel.fontColor = SKColor.red
+        scoreLabel.fontColor = SKColor.yellow
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.position = CGPoint(x: 50, y: size.height - 52)
         addChild(scoreLabel)
@@ -261,7 +255,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         gameLevel = SKLabelNode(fontNamed:"MarkerFelt-Thin")
         gameLevel.text = "1"
         gameLevel.zPosition = 2
-        gameLevel.fontColor = SKColor.black
+        gameLevel.fontColor = SKColor.yellow
         gameLevel.horizontalAlignmentMode = .right
         gameLevel.position = CGPoint(x: size.width-10, y: size.height - 52)
         addChild(gameLevel)
@@ -269,7 +263,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         let gameLevelText = SKLabelNode(fontNamed:"MarkerFelt-Thin")
         gameLevelText.text = "Level:"
         gameLevelText.zPosition = 2
-        gameLevelText.fontColor = SKColor.yellow
+        gameLevelText.fontColor = SKColor.cyan
         gameLevelText.horizontalAlignmentMode = .right
         gameLevelText.position = CGPoint(x: size.width-37, y: size.height - 52)
         addChild(gameLevelText)
@@ -371,7 +365,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func createEnemyPlane(){
-        enemyPlaneArray = Array<enemyPlane>()
         let choose = arc4random() % 100
         var type:EnemyPlaneType
         var speed:Float

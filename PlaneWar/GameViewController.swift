@@ -83,7 +83,8 @@ class GameViewController: UIViewController {
         backButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 - 50)
         backButton.isHidden = true
         backButton.setTitle("Home", for: UIControlState())
-        backButton.setTitleColor(UIColor.black, for: UIControlState())
+        backButton.setTitleColor(UIColor.yellow, for: UIControlState())
+        backButton.titleLabel?.font = UIFont(name:"ChalkboardSE-Bold", size:20)
         backButton.layer.borderWidth = 2.0
         backButton.layer.cornerRadius = 15.0
         backButton.layer.borderColor = UIColor.gray.cgColor
@@ -95,7 +96,8 @@ class GameViewController: UIViewController {
         restartButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 + 50)
         restartButton.isHidden = true
         restartButton.setTitle("Restart", for: UIControlState())
-        restartButton.setTitleColor(UIColor.black, for: UIControlState())
+        restartButton.setTitleColor(UIColor.yellow, for: UIControlState())
+        restartButton.titleLabel?.font = UIFont(name:"ChalkboardSE-Bold", size:20)
         restartButton.layer.borderWidth = 2.0
         restartButton.layer.cornerRadius = 15.0
         restartButton.layer.borderColor = UIColor.gray.cgColor
@@ -107,7 +109,8 @@ class GameViewController: UIViewController {
         continueButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2 )
         continueButton.isHidden = true
         continueButton.setTitle("Continue", for: UIControlState())
-        continueButton.setTitleColor(UIColor.black, for: UIControlState())
+        continueButton.setTitleColor(UIColor.yellow, for: UIControlState())
+        continueButton.titleLabel?.font = UIFont(name:"ChalkboardSE-Bold", size:20)
         continueButton.layer.borderWidth = 2.0
         continueButton.layer.cornerRadius = 15.0
         continueButton.layer.borderColor = UIColor.gray.cgColor
